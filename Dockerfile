@@ -1,4 +1,4 @@
-FROM golang:1.26@sha256:2005724102f45917a63e9d092fc0e4ea56ea575048ce147caad5f5f61502c365 AS builder
+FROM golang:1.27@sha256:512690a5660563b57d37ecc31129e7f136e831db2aed24a1dbeb8ad7380dc0fa AS builder
 
 WORKDIR /workspace
 
@@ -15,7 +15,7 @@ RUN --mount=type=cache,target=/go/pkg/mod/ \
     GOARCH=$TARGETARCH \
     make build
 
-FROM gcr.io/distroless/static:nonroot@sha256:f7f8f729987ad0fdf6b05eeeae94b26e6a0f613bdf46feea7fc40f7bd72953e6
+FROM gcr.io/distroless/static:nonroot@sha256:1c2c046bc09ed40fad370b599a0b1ae7987f55b01e247cf27a7c27cd97e5bbc7
 WORKDIR /
 COPY --from=builder /workspace/bin/mdextract .
 USER 65532:65532
